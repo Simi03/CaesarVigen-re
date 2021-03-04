@@ -5,6 +5,7 @@ import java.util.Scanner;
  * @version 25/02/2021
  */
 public class Caesar {
+    //Verschlüsselung
     public static void CaesarVerschluesseln() {
         Scanner sc = new Scanner(System.in);
         System.out.println("gebe den zu verschlüsselden text ein");
@@ -15,7 +16,7 @@ public class Caesar {
         String verschiebungsZahl = sc.nextLine();
 
         //Verschiebung
-        int x = Integer.parseInt(verschiebungsZahl); // Limit implementieren
+        int x = Integer.parseInt(verschiebungsZahl);
         for (int i = 0; i < inputText.length(); i++) {
             char zeichen = inputText.charAt(i);
             if (zeichen != ' ') {
@@ -33,7 +34,37 @@ public class Caesar {
 
     }
 
+    //Entschlüsselung
+    public static void CaesarEntschluesseln(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("gebe den zu entschlüsselnden text ein");
+        String inputText = sc.nextLine();
+        StringBuilder outputText = new StringBuilder();
+
+        System.out.println("Gebe die Anzahl ein um die Buchstaben wieder zurückzuverschieben");
+        String verschiebungsZahl = sc.nextLine();
+
+        //Verschiebung
+        int x = Integer.parseInt(verschiebungsZahl);
+        for (int i = 0; i < inputText.length(); i++) {
+            char zeichen = inputText.charAt(i);
+            if (zeichen != ' ') {
+                if (zeichen - x < 97) {
+                    int rest = x + 97 - zeichen; // 97 = a
+                    outputText.append((char) (123 - rest)); // 123 = 1 nach z
+                } else {
+                    outputText.append((char) (zeichen - x));
+                }
+            } else {
+                outputText.append((char) (' '));
+            }
+        }
+        System.out.println(outputText);
+
+    }
+
     public static void main(String[] args) {
-        CaesarVerschluesseln();
+        //CaesarVerschluesseln();
+        //CaesarEntschluesseln();
     }
 }
