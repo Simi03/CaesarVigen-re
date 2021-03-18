@@ -10,19 +10,22 @@ import java.util.Scanner;
 public class Caesar {
     /*File Einlesen
      */
-    public static void readFile(){
-        try {
+    public static String readFile(){
+      /*  try {
             File myObj = new File("src/main/resources/testRead.txt");
             Scanner myReader = new Scanner(myObj);
+            String data="";
             while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
+                  data = myReader.nextLine();
             }
             myReader.close();
+            return data;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+*/
+return "";
     }
 
     /*Verschlüsselung
@@ -30,7 +33,7 @@ public class Caesar {
     public static void CaesarVerschluesseln() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Gebe den zu verschlüsselden Text ein");
-        String inputText = sc.nextLine();
+        String inputText = readFile();
         StringBuilder outputText = new StringBuilder();
 
         System.out.println("Um wie viel soll der Text verschoben werden? Bitte nur natürliche Zahlen");
