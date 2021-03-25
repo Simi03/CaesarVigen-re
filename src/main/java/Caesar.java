@@ -1,5 +1,7 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 // https://www.macronom.de/kryptographie/caesar/verschluesselung.php testing
 
@@ -8,32 +10,15 @@ import java.util.Scanner;
  * @version 25/02/2021
  */
 public class Caesar {
-    /*File Einlesen
-     */
-    public static String readFile(){
-      /*  try {
-            File myObj = new File("src/main/resources/testRead.txt");
-            Scanner myReader = new Scanner(myObj);
-            String data="";
-            while (myReader.hasNextLine()) {
-                  data = myReader.nextLine();
-            }
-            myReader.close();
-            return data;
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-*/
-return "";
-    }
 
     /*Verschlüsselung
      */
-    public static void CaesarVerschluesseln() {
+    public static void CaesarVerschluesseln() throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Gebe den zu verschlüsselden Text ein");
-        String inputText = readFile();
+        //   System.out.println("Gebe den zu verschlüsselden Text ein");
+
+        String inputText = new String(Files.readAllBytes(Paths.get("src/main/resources/testRead.txt")), StandardCharsets.UTF_8);
+
         StringBuilder outputText = new StringBuilder();
 
         System.out.println("Um wie viel soll der Text verschoben werden? Bitte nur natürliche Zahlen");
@@ -64,8 +49,7 @@ return "";
                 outputText.append((char) (zeichen));
             }
         }
-        System.out.println(outputText);
-
+          System.out.println(outputText);
     }
 
     /*Entschlüsselung
@@ -108,9 +92,8 @@ return "";
 
     }
 
-    public static void main(String[] args) {
-       // CaesarVerschluesseln();
-        CaesarEntschluesseln();
-        //readFile();
+    public static void main(String[] args) throws IOException {
+        CaesarVerschluesseln();
+        // CaesarEntschluesseln();
     }
 }
