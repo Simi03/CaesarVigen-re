@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,6 +12,30 @@ import java.util.Scanner;
  * @version 25/02/2021
  */
 public class Caesar {
+    /*File erstellen
+     */
+    public static void createWriteFile(StringBuilder outputText) {
+        // File erstellen
+        try {
+            File myObj = new File("src/main/resources/OutputText.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        //File schreiben
+        }try{
+            FileWriter myWriter = new FileWriter("src/main/resources/OutputText.txt");
+            myWriter.write(String.valueOf(outputText));
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        }catch (IOException io){
+            System.out.println("An error occurred.");
+            io.printStackTrace();
+        }
+
+    }
 
     /*Verschlüsselung
      */
@@ -49,7 +75,7 @@ public class Caesar {
                 outputText.append((char) (zeichen));
             }
         }
-          System.out.println(outputText);
+        createWriteFile(outputText);
     }
 
     /*Entschlüsselung
@@ -95,5 +121,6 @@ public class Caesar {
     public static void main(String[] args) throws IOException {
         CaesarVerschluesseln();
         // CaesarEntschluesseln();
+        //createFile();
     }
 }
