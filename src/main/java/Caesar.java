@@ -1,6 +1,9 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 // https://www.macronom.de/kryptographie/caesar/verschluesselung.php testing
 
@@ -9,32 +12,39 @@ import java.util.Scanner;
  * @version 25/02/2021
  */
 public class Caesar {
-    /*File Einlesen
+    /*File erstellen
      */
-    public static String readFile(){
-      /*  try {
-            File myObj = new File("src/main/resources/testRead.txt");
-            Scanner myReader = new Scanner(myObj);
-            String data="";
-            while (myReader.hasNextLine()) {
-                  data = myReader.nextLine();
+    public static void createWriteFile(StringBuilder outputText) {
+        // File erstellen
+        try {
+            File myObj = new File("src/main/resources/OutputText.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
             }
-            myReader.close();
-            return data;
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        //File schreiben
+        }try{
+            FileWriter myWriter = new FileWriter("src/main/resources/OutputText.txt");
+            myWriter.write(String.valueOf(outputText));
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        }catch (IOException io){
+            System.out.println("An error occurred.");
+            io.printStackTrace();
         }
-*/
-return "";
+
     }
 
     /*Verschlüsselung
      */
-    public static void CaesarVerschluesseln() {
+    public static void CaesarVerschluesseln() throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Gebe den zu verschlüsselden Text ein");
-        String inputText = sc.nextLine();
+        //   System.out.println("Gebe den zu verschlüsselden Text ein");
+
+        String inputText = new String(Files.readAllBytes(Paths.get("src/main/resources/testRead.txt")), StandardCharsets.UTF_8);
+
         StringBuilder outputText = new StringBuilder();
 
         System.out.println("Um wie viel soll der Text verschoben werden? Bitte nur natürliche Zahlen");
@@ -65,8 +75,7 @@ return "";
                 outputText.append((char) (zeichen));
             }
         }
-        System.out.println(outputText);
-
+        createWriteFile(outputText);
     }
 
     /*Entschlüsselung
@@ -109,43 +118,9 @@ return "";
 
     }
 
-    /*Caesar einzelne buchstaben lesen
-     */
-    static final int MAX_CHAR = 1048576;
-
-    public static void CaesarBuchstabenLesen() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Gebe den verschlüsselten Text ein um die Anzahl jedes Zeichens zu zählen");
-        String text = sc.nextLine();
-
-        int[] count = new int[MAX_CHAR];
-        int len = text.length();
-
-        for (int i = 0; i < len; i++)
-            count [text.charAt(i)]++;
-
-        char ch[] = new char[text.length()];
-        for (int i = 0; i < len; i++) {
-            ch[i] = text.charAt(i);
-            int find = 0;
-            for (int j = 0; j <= i; j++) {
-                if (text.charAt(i) == ch[j])
-                    find++;
-            }
-            //Arrays.sort(count);
-            if (find == 1)
-                System.out.println(
-                        "Number of Occurance of "
-                        + text.charAt(i)
-                        + " is:" + count[text.charAt(i)]
-                );
-        }
-    }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CaesarVerschluesseln();
-        //CaesarEntschluesseln();
-        //readFile();
-        CaesarBuchstabenLesen();
+        // CaesarEntschluesseln();
+        //createFile();
     }
 }
