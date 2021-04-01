@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 // https://www.macronom.de/kryptographie/caesar/verschluesselung.php testing
 
@@ -33,7 +34,7 @@ return "";
     public static void CaesarVerschluesseln() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Gebe den zu verschlüsselden Text ein");
-        String inputText = readFile();
+        String inputText = sc.nextLine();
         StringBuilder outputText = new StringBuilder();
 
         System.out.println("Um wie viel soll der Text verschoben werden? Bitte nur natürliche Zahlen");
@@ -108,9 +109,43 @@ return "";
 
     }
 
+    /*Caesar einzelne buchstaben lesen
+     */
+    static final int MAX_CHAR = 1048576;
+
+    public static void CaesarBuchstabenLesen() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Gebe den verschlüsselten Text ein um die Anzahl jedes Zeichens zu zählen");
+        String text = sc.nextLine();
+
+        int[] count = new int[MAX_CHAR];
+        int len = text.length();
+
+        for (int i = 0; i < len; i++)
+            count [text.charAt(i)]++;
+
+        char ch[] = new char[text.length()];
+        for (int i = 0; i < len; i++) {
+            ch[i] = text.charAt(i);
+            int find = 0;
+            for (int j = 0; j <= i; j++) {
+                if (text.charAt(i) == ch[j])
+                    find++;
+            }
+            //Arrays.sort(count);
+            if (find == 1)
+                System.out.println(
+                        "Number of Occurance of "
+                        + text.charAt(i)
+                        + " is:" + count[text.charAt(i)]
+                );
+        }
+    }
+
     public static void main(String[] args) {
-       // CaesarVerschluesseln();
-        CaesarEntschluesseln();
+        CaesarVerschluesseln();
+        //CaesarEntschluesseln();
         //readFile();
+        CaesarBuchstabenLesen();
     }
 }
