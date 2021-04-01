@@ -8,14 +8,14 @@ import java.util.Scanner;
 // https://www.macronom.de/kryptographie/caesar/verschluesselung.php testing
 
 /**
- * @author Simon Tobler
+ * @author Simon Tobler, Redon Spahiu, Simon Lindenmann
  * @version 25/02/2021
  */
 public class Caesar {
     static final int MAX_CHAR = 1048576;
     /*File erstellen
      */
-    public static void createWriteFile(StringBuilder outputText) {
+    public static void createWriteFileEncrypt(StringBuilder outputText) {
         // File erstellen
         try {
             File myObj = new File("src/main/resources/Chiffrat.txt");
@@ -36,6 +36,27 @@ public class Caesar {
             io.printStackTrace();
         }
 
+    }
+    public static void createWriteFileDecrypt(StringBuilder outputText){
+        // File erstellen
+        try {
+            File myObj = new File("src/main/resources/DecryptedChiffrat.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            //File schreiben
+        }try{
+            FileWriter myWriter = new FileWriter("src/main/resources/DecryptedChiffrat.txt");
+            myWriter.write(String.valueOf(outputText));
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        }catch (IOException io){
+            System.out.println("An error occurred.");
+            io.printStackTrace();
+        }
     }
 
     /*Verschlüsselung
@@ -76,7 +97,7 @@ public class Caesar {
                 outputText.append((char) (zeichen));
             }
         }
-        createWriteFile(outputText);
+        createWriteFileEncrypt(outputText);
     }
 
     /*Entschlüsselung
@@ -97,14 +118,14 @@ public class Caesar {
             char zeichen = inputText.charAt(i);
             if (zeichen != ' ') {// Character.isLetter(zeichen) falls Fragezeichen etc. nicht verschlüsselt werden sollten
                 if (Character.isUpperCase(zeichen)) { // falls Grossbuchstabe
-                    if (zeichen - x < 65) {
+                    if (zeichen - x < 65) { // anpassen für Zeichen die kleiner als 65 sind
                         int rest = x + 65 - zeichen; // 65 = A
                         outputText.append((char) (91 - rest)); // 91 = 1 nach Z
                     } else {
                         outputText.append((char) (zeichen - x));
                     }
                 } else { //falls kleinbuchstabe
-                    if (zeichen - x < 97) {
+                    if (zeichen - x < 97) { // anpassen für Zeichen die kleiner als 97 sind
                         int rest = x + 97 - zeichen; // 97 = a
                         outputText.append((char) (123 - rest)); // 123 = 1 nach z
                     } else {
@@ -115,8 +136,7 @@ public class Caesar {
                 outputText.append((char) (zeichen));
             }
         }
-        System.out.println(outputText);
-
+        createWriteFileDecrypt(outputText);
     }
 
     public static void CaesarBuchstabenLesen() throws IOException {
@@ -150,7 +170,7 @@ public class Caesar {
     }
 
     public static void main(String[] args) throws IOException {
-       // CaesarVerschluesseln();
+        CaesarVerschluesseln();
         CaesarEntschluesseln();
         //CaesarBuchstabenLesen();
     }
