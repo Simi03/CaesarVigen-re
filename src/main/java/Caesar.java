@@ -18,7 +18,7 @@ public class Caesar {
     public static void createWriteFile(StringBuilder outputText) {
         // File erstellen
         try {
-            File myObj = new File("src/main/resources/OutputText.txt");
+            File myObj = new File("src/main/resources/Chiffrat.txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             }
@@ -27,7 +27,7 @@ public class Caesar {
             e.printStackTrace();
         //File schreiben
         }try{
-            FileWriter myWriter = new FileWriter("src/main/resources/OutputText.txt");
+            FileWriter myWriter = new FileWriter("src/main/resources/Chiffrat.txt");
             myWriter.write(String.valueOf(outputText));
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
@@ -44,7 +44,7 @@ public class Caesar {
         Scanner sc = new Scanner(System.in);
         //   System.out.println("Gebe den zu verschlüsselden Text ein");
 
-        String inputText = new String(Files.readAllBytes(Paths.get("src/main/resources/testRead.txt")), StandardCharsets.UTF_8);
+        String inputText = new String(Files.readAllBytes(Paths.get("src/main/resources/Klartext.txt")), StandardCharsets.UTF_8);
 
         StringBuilder outputText = new StringBuilder();
 
@@ -119,10 +119,11 @@ public class Caesar {
 
     }
 
-    public static void CaesarBuchstabenLesen() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Gebe den verschlüsselten Text ein um die Anzahl jedes Zeichens zu zählen");
-        String text = sc.nextLine();
+    public static void CaesarBuchstabenLesen() throws IOException {
+        //Scanner sc = new Scanner(System.in);
+        //System.out.println("Gebe den verschlüsselten Text ein um die Anzahl jedes Zeichens zu zählen");
+        //String text = sc.nextLine();
+        String text = new String(Files.readAllBytes(Paths.get("src/main/resources/Chiffrat.txt")), StandardCharsets.UTF_8);
 
         int[] count = new int[MAX_CHAR];
         int len = text.length();
@@ -151,7 +152,6 @@ public class Caesar {
     public static void main(String[] args) throws IOException {
         CaesarVerschluesseln();
         //CaesarEntschluesseln();
-        //createFile();
-        //CaesarBuchstabenLesen();
+        CaesarBuchstabenLesen();
     }
 }
