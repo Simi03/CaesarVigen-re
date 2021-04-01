@@ -12,6 +12,7 @@ import java.util.Scanner;
  * @version 25/02/2021
  */
 public class Caesar {
+    static final int MAX_CHAR = 1048576;
     /*File erstellen
      */
     public static void createWriteFile(StringBuilder outputText) {
@@ -118,9 +119,39 @@ public class Caesar {
 
     }
 
+    public static void CaesarBuchstabenLesen() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Gebe den verschlüsselten Text ein um die Anzahl jedes Zeichens zu zählen");
+        String text = sc.nextLine();
+
+        int[] count = new int[MAX_CHAR];
+        int len = text.length();
+
+        for (int i = 0; i < len; i++)
+            count [text.charAt(i)]++;
+
+        char ch[] = new char[text.length()];
+        for (int i = 0; i < len; i++) {
+            ch[i] = text.charAt(i);
+            int find = 0;
+            for (int j = 0; j <= i; j++) {
+                if (text.charAt(i) == ch[j])
+                    find++;
+            }
+            //Arrays.sort(count);
+            if (find == 1)
+                System.out.println(
+                        "Number of Occurance of "
+                                + text.charAt(i)
+                                + " is:" + count[text.charAt(i)]
+                );
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         CaesarVerschluesseln();
-        // CaesarEntschluesseln();
+        //CaesarEntschluesseln();
         //createFile();
+        //CaesarBuchstabenLesen();
     }
 }
