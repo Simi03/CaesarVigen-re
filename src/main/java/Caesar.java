@@ -81,10 +81,10 @@ public class Caesar {
 
     /*Entschlüsselung
      */
-    public static void CaesarEntschluesseln() {
+    public static void CaesarEntschluesseln() throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("gebe den zu entschlüsselnden text ein");
-        String inputText = sc.nextLine();
+//      System.out.println("gebe den zu entschlüsselnden text ein");
+        String inputText = new String(Files.readAllBytes(Paths.get("src/main/resources/Chiffrat.txt")), StandardCharsets.UTF_8);
         StringBuilder outputText = new StringBuilder();
 
         System.out.println("Um wie viel soll der Text verschoben werden? Bitte nur natürliche Zahlen ");
@@ -150,8 +150,8 @@ public class Caesar {
     }
 
     public static void main(String[] args) throws IOException {
-        CaesarVerschluesseln();
-        //CaesarEntschluesseln();
-        CaesarBuchstabenLesen();
+       // CaesarVerschluesseln();
+        CaesarEntschluesseln();
+        //CaesarBuchstabenLesen();
     }
 }
