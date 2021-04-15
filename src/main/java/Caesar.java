@@ -72,7 +72,7 @@ public class Caesar {
 
         String inputText = new String(Files.readAllBytes(Paths.get("src/main/resources/Klartext.txt")), StandardCharsets.UTF_8);
 
-        StringBuilder outputText = new StringBuilder();
+        StringBuilder outputText = new StringBuilder(); //um später append benutzen zu können
 
         System.out.println("Um wie viel soll der Text verschoben werden? Bitte nur natürliche Zahlen");
         String verschiebungsZahl = sc.nextLine();
@@ -106,7 +106,7 @@ public class Caesar {
         int x = Integer.parseInt(verschiebungsZahl);
         for (int i = 0; i < inputText.length(); i++) {
             char zeichen = inputText.charAt(i);
-            if (zeichen != ' ') {                               // Character.isLetter(zeichen) falls Fragezeichen etc. nicht verschlüsselt werden sollten
+            if (zeichen != ' ') {// Character.isLetter(zeichen) falls Fragezeichen etc. nicht verschlüsselt werden sollten
                outputText.append((char) (zeichen - x));
             } else {
                 outputText.append((char) (zeichen));
