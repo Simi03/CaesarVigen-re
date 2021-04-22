@@ -115,7 +115,7 @@ public class Caesar {
         createWriteFileDecrypt(outputText);
     }
 
-    public static void CaesarBuchstabenLesen() throws IOException {
+    public static void buchstabenLesen() throws IOException {
         //Scanner sc = new Scanner(System.in);
         //System.out.println("Gebe den verschlüsselten Text ein um die Anzahl jedes Zeichens zu zählen");
         //String text = sc.nextLine();
@@ -148,6 +148,6 @@ public class Caesar {
     public static void main(String[] args) throws IOException {
         CaesarVerschluesseln();
         CaesarEntschluesseln();
-        CaesarBuchstabenLesen();
+        buchstabenLesen();
     }
 }

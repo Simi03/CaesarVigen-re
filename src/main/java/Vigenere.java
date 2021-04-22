@@ -10,6 +10,7 @@ public class Vigenere {
 
     public static char[] crypt(char[] plain, char[] key, int direction) {
 
+        //Array für umgewandelte chars erstellen
         char[] output = new char[plain.length];
         for (int i = 0; i < plain.length; i++) {
             //Verschluesseln
@@ -81,6 +82,36 @@ public class Vigenere {
         }
     }
 
+    public static void buchstabenLesen() throws IOException {
+        //Scanner sc = new Scanner(System.in);
+        //System.out.println("Gebe den verschlüsselten Text ein um die Anzahl jedes Zeichens zu zählen");
+        //String text = sc.nextLine();
+        String text = new String(Files.readAllBytes(Paths.get("src/main/resources/Chiffrat.txt")), StandardCharsets.UTF_8);
+
+        int[] count = new int[Caesar.MAX_CHAR];
+        int len = text.length();
+
+        for (int i = 0; i < len; i++)
+            count[text.charAt(i)]++;
+
+        char ch[] = new char[text.length()];
+        for (int i = 0; i < len; i++) {
+            ch[i] = text.charAt(i);
+            int find = 0;
+            for (int j = 0; j <= i; j++) {
+                if (text.charAt(i) == ch[j])
+                    find++;
+            }
+            //Arrays.sort(count);
+            if (find == 1)
+                System.out.println(
+                        "Number of Occurance of "
+                                + text.charAt(i)
+                                + " is:" + count[text.charAt(i)]
+                );
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         String plaintext = new String(Files.readAllBytes(Paths.get("src/main/resources/Klartext.txt")), StandardCharsets.UTF_8);
@@ -102,5 +133,6 @@ public class Vigenere {
         System.out.println(decrypted);
         createWriteFileDecrypt(String.valueOf(decrypted));
         scanner.close();
+        buchstabenLesen();
     }
 }
